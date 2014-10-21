@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogPrintTemplate</class>
+ <widget class="QDialog" name="DialogPrintTemplate">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>521</width>
+    <height>416</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Print template</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="3" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Reset|QDialogButtonBox::Save</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPushButton" name="pushButtonPrint">
+     <property name="text">
+      <string>Test print</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QTextEdit" name="textEditBody">
+     <property name="font">
+      <font>
+       <family>Courier New</family>
+      </font>
+     </property>
+     <property name="lineWrapMode">
+      <enum>QTextEdit::FixedPixelWidth</enum>
+     </property>
+     <property name="lineWrapColumnOrWidth">
+      <number>410</number>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="ESCPOSFontSizeComboBox" name="comboBoxFontType"/>
+     </item>
+     <item>
+      <widget class="ESCPOSTextEditAlignLeft" name="toolButtonAlignLeft">
+       <property name="toolTip">
+        <string>Left align</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../qescpos_icons.qrc">
+         <normaloff>:/icons/textleft.png</normaloff>:/icons/textleft.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ESCPOSTextEditAlignCenter" name="toolButtonAlignCenter">
+       <property name="toolTip">
+        <string>Center align</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../qescpos_icons.qrc">
+         <normaloff>:/icons/textcenter.png</normaloff>:/icons/textcenter.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ESCPOSTextEditAlignRight" name="toolButtonAlignRight">
+       <property name="toolTip">
+        <string>Right align</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../qescpos_icons.qrc">
+         <normaloff>:/icons/textright.png</normaloff>:/icons/textright.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ESCPOSTextEditBold" name="toolButtonBold">
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../qescpos_icons.qrc">
+         <normaloff>:/icons/textbold.png</normaloff>:/icons/textbold.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ESCPOSTextEditUnderLine" name="toolButtonUnderLine">
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../qescpos_icons.qrc">
+         <normaloff>:/icons/textunder.png</normaloff>:/icons/textunder.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ESCPOSTextEditAlignLeft</class>
+   <extends>QToolButton</extends>
+   <header location="global">escpostexteditwidgets.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ESCPOSTextEditAlignRight</class>
+   <extends>QToolButton</extends>
+   <header location="global">escpostexteditwidgets.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ESCPOSTextEditAlignCenter</class>
+   <extends>QToolButton</extends>
+   <header location="global">escpostexteditwidgets.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ESCPOSTextEditBold</class>
+   <extends>QToolButton</extends>
+   <header location="global">escpostexteditwidgets.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ESCPOSTextEditUnderLine</class>
+   <extends>QToolButton</extends>
+   <header location="global">escpostexteditwidgets.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ESCPOSFontSizeComboBox</class>
+   <extends>QComboBox</extends>
+   <header location="global">escpostexteditwidgets.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../qescpos_icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

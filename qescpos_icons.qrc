@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/doublesize.png</file>
+        <file>icons/textbold.png</file>
+        <file>icons/textcenter.png</file>
+        <file>icons/textleft.png</file>
+        <file>icons/textright.png</file>
+        <file>icons/textunder.png</file>
+    </qresource>
+</RCC>
