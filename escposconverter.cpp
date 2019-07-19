@@ -22,7 +22,7 @@ QByteArray ESCPOSDirectConverter::convert(QTextDocument* doc)
         for(;!(it.atEnd()); ++it) {
             ret.append(setFormat(it.fragment()));
             //ret.append(codec->fromUnicode(it.fragment().text()));
-            ret.append(codec->convertFromUnicode(it.fragment().text().data(), it.fragment().length(), NULL));
+            ret.append(codec->convertFromUnicode(it.fragment().text().data(), it.fragment().length(), nullptr));
         }
         ret.append(0x1B);
         ret.append(0x64);

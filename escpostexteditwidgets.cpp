@@ -1,36 +1,43 @@
 #include "escpostexteditwidgets.h"
 
+#include <QDebug>
+
 ESCPOSToolButton::ESCPOSToolButton(QWidget *parent)
     : QToolButton(parent), ESCPOSToolWidget()
 {
-    connect(this, SIGNAL(clicked()), this, SLOT(clicked()));
+    setCheckable(true);
+    connect(this, &QToolButton::clicked, this, &ESCPOSToolButton::clicked);
 }
 
 void ESCPOSTextEditAlignLeft::clicked()
 {
-    if (m_textEdit != NULL)
+    if (m_textEdit != nullptr)
         m_textEdit->setAlignment(Qt::AlignLeft);
 }
 
-
-
 void ESCPOSTextEditAlignRight::clicked()
 {
-    if (m_textEdit != NULL)
+    if (m_textEdit != nullptr)
         m_textEdit->setAlignment(Qt::AlignRight);
 }
 
 
+
 void ESCPOSTextEditAlignCenter::clicked()
 {
-    if (m_textEdit != NULL)
+    if (m_textEdit != nullptr)
         m_textEdit->setAlignment(Qt::AlignCenter);
 }
 
 
+void ESCPOSTextEditBold::setStateFromFormat(const QTextCharFormat &format)
+{
+    setChecked(format.fontWeight() == QFont::Bold);
+}
+
 void ESCPOSTextEditBold::clicked()
 {
-    if (m_textEdit != NULL) {
+    if (m_textEdit != nullptr) {
         QTextCursor cursor = m_textEdit->textCursor();
         if (!cursor.hasSelection())
             cursor.select(QTextCursor::WordUnderCursor);
@@ -43,10 +50,14 @@ void ESCPOSTextEditBold::clicked()
     }
 }
 
+void ESCPOSTextEditUnderLine::setStateFromFormat(const QTextCharFormat &format)
+{
+    setChecked(format.underlineStyle() == QTextCharFormat::SingleUnderline);
+}
 
 void ESCPOSTextEditUnderLine::clicked()
 {
-    if (m_textEdit != NULL) {
+    if (m_textEdit != nullptr) {
         QTextCursor cursor = m_textEdit->textCursor();
         if (!cursor.hasSelection())
             cursor.select(QTextCursor::WordUnderCursor);
@@ -68,9 +79,14 @@ ESCPOSFontSizeComboBox::ESCPOSFontSizeComboBox(QWidget *parent) :
     connect(this, SIGNAL(activated(int)), this, SLOT(activatedSlot(int)));
 }
 
+void ESCPOSFontSizeComboBox::setStateFromFormat(const QTextCharFormat &format)
+{
+    setCurrentIndex(qFuzzyCompare(format.fontPointSize(), 9.0) ? 0 : 1);
+}
+
 void ESCPOSFontSizeComboBox::activatedSlot(int index)
 {
-    if (m_textEdit != NULL) {
+    if (m_textEdit != nullptr) {
         QTextCursor cursor = m_textEdit->textCursor();
         if (!cursor.hasSelection())
             cursor.select(QTextCursor::WordUnderCursor);
@@ -78,4 +94,57 @@ void ESCPOSFontSizeComboBox::activatedSlot(int index)
         format.setFontPointSize(index == 0?9:12);
         m_textEdit->mergeCurrentCharFormat(format);
     }
+}
+
+ESCPOSToolWidget::ESCPOSToolWidget() :
+    m_textEdit(nullptr)
+{
+    m_charm = new ESCPOSToolWidgetCharm(this);
+}
+
+ESCPOSToolWidget::~ESCPOSToolWidget()
+{
+    delete m_charm;
+}
+
+void ESCPOSToolWidget::setTextEdit(QTextEdit *textEdit)
+{
+    m_textEdit = textEdit;
+    m_charm->setTextEdit(textEdit);
+}
+
+void ESCPOSToolWidget::unsetCurrentTextEdit()
+{
+    m_charm->unsetCurrentTextEdit();
+    m_textEdit = nullptr;
+}
+
+void ESCPOSToolWidget::setStateFromFormat(const QTextCharFormat &format)
+{
+    Q_UNUSED(format);
+}
+
+ESCPOSToolWidgetCharm::ESCPOSToolWidgetCharm(ESCPOSToolWidget *widget) :
+    QObject (nullptr),
+    m_widget(widget)
+{
+
+}
+
+void ESCPOSToolWidgetCharm::setStateFromFormat(const QTextCharFormat &format)
+{
+    m_widget->setStateFromFormat(format);
+}
+
+void ESCPOSToolWidgetCharm::setTextEdit(QTextEdit *textEdit)
+{
+    m_textEdit = textEdit;
+    connect(m_textEdit, &QTextEdit::currentCharFormatChanged, this, &ESCPOSToolWidgetCharm::setStateFromFormat);
+}
+
+void ESCPOSToolWidgetCharm::unsetCurrentTextEdit()
+{
+    if (m_textEdit)
+        disconnect(m_textEdit, &QTextEdit::currentCharFormatChanged, this, &ESCPOSToolWidgetCharm::setStateFromFormat);
+    m_textEdit = nullptr;
 }

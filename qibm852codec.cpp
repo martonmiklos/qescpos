@@ -21,7 +21,7 @@ QStringList QIBM852Codec::aliases()
 
 QString QIBM852Codec::convertToUnicode(const char *in, int length, ConverterState *state) const
 {
-    if (IBM850Codec == NULL) {
+    if (IBM850Codec == nullptr) {
         return "";
     } else {
         return IBM850Codec->toUnicode(in, length, state);
@@ -31,7 +31,7 @@ QString QIBM852Codec::convertToUnicode(const char *in, int length, ConverterStat
 QByteArray QIBM852Codec::convertFromUnicode(const QChar *in, int length, ConverterState *state) const
 {
     Q_UNUSED(state)
-    if (IBM850Codec == NULL) {
+    if (IBM850Codec == nullptr) {
         return "";
     } else {
         QByteArray ret;
